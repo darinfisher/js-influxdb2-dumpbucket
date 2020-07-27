@@ -24,7 +24,8 @@ You will need to create this file correctly to run.
 1. Clone the repo
 2. Initialize to build the dependencies: `yarn init`
 3. Create your env file: env.json
-4. Run: `node .`
+4. Verify the `fluxQuery` is defined to get the data you want
+5. Run: `node .`
 
 
 
