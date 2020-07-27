@@ -6,17 +6,19 @@ const {
   dest_url, dest_token, dest_org, dest_bucket
 } = require( './env.json' );
 
-const {InfluxDB, FluxTableMetaData, Point, HttpError} = require( '@influxdata/influxdb-client' );
+const { InfluxDB, FluxTableMetaData, Point, HttpError } = require( '@influxdata/influxdb-client' );
 
+// keys we don't want to save
 const delKeys = [ "result", "table", "_start", "_stop", "_time", "_value", "_field", "_measurement" ];
 
+// need to auto-detect field types ...
 const dataTypes = {
   'auth_result': 'stringField',
   'suspicious': 'booleanField'
 };
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise( resolve => setTimeout( resolve, ms ) );
 }
 
 var wfunc;    // InfluxDB write class
@@ -59,7 +61,6 @@ function writeRecord( rec, cb ) {
 function processRec( rec, cb ) {
   if ( !rec ) return( cb( "Error processing record: NO RECORD!" ) );
   buildPoint( rec, function( err, point ) {
-    // send point to dest db
     if ( err ) return( cb( err ) );
     writeRecord( point, function( err ) { return cb( err ) } );
   } );
@@ -73,6 +74,7 @@ function getData( cb ) {
   let totalc = 0;
   r.queryRows( fluxQuery, {
     next( row, tableMeta ) {
+      // if throttling is needed, here is a good place to do that
       const o = tableMeta.toObject( row );
       count++;
       totalc++;
@@ -81,17 +83,12 @@ function getData( cb ) {
     error( error ) { return( cb( error ) ); },
     complete() {
       while ( count > 0 ) { sleep( 1 ); console.log( 'getData() count:' + count ); }
-      //console.log( 'Total: ' + totalc );
       writeAPI().flush()
         .then( () => { 
           writeAPI()
             .close()
-            .then( () => {
-              return( cb() ); 
-            } )
-            .catch( e => {
-              return( cb( e ) ); 
-            } )
+            .then( () => { return( cb() ); } )
+            .catch( e => { return( cb( e ) ); } )
         } )
         .catch( e => { return ( cb( e ) ); } );
     }
@@ -99,7 +96,7 @@ function getData( cb ) {
 }
 
 getData( function( err ) {
-  if ( err ) console.log( err );
-  //console.log( ' *** DONE *** ' );
+  if ( err ) return( console.log( err ); );
+  console.log( 'Complete transfer of ' + totalc + ' records.' );
 } );
 
