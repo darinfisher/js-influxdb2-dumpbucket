@@ -23,7 +23,7 @@ You will need to create this file correctly to run.
 ```
 1. Verify the cloud 2 configuration, create the bucket and aquire the read/write token
 2. Clone the repo: `git clone https://github.com/darinfisher/js-influxdb2-dumpbucket.git`
-3. Initialize to build the dependencies: `cd js-influxdb2-dumpbucket; yarn`
+3. Initialize to build the dependencies: `cd js-influxdb2-dumpbucket && yarn`
 4. Create your env file: `env.json`
 5. Verify the `fluxQuery` is defined to get the data you want
 6. Run: `node .`
