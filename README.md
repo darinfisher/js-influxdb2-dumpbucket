@@ -21,7 +21,10 @@ You will need to create this file correctly to run.
   "dest_bucket": "",
 }
 ```
-
+1. Clone the repo
+2. Initialize to build the dependencies: `yarn init`
+3. Create your env file: env.json
+4. Run: `node .`
 
 
 
