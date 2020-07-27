@@ -1,15 +1,14 @@
 {
   "name": "js-influxdb2-dumpbucket",
   "version": "1.0.0",
-  "description": "",
+  "description": "Copies a bucket from OSS 2 to Cloud 2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "dfisher@influxdata.com",
+  "license": "MIT",
   "dependencies": {
-    "@influxdata/influxdb-client": "^1.4.0",
-    "googleapis": "^51.0.0"
+    "@influxdata/influxdb-client": "^1.4.0"
   }
 }
