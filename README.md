@@ -26,7 +26,7 @@ You will need to create this file correctly to run.
 3. Initialize to build the dependencies: `cd js-influxdb2-dumpbucket && yarn`
 4. Create your env file: `env.json`
 5. Verify the `fluxQuery` is defined to get the data you want.  
-   To grab everthing in the bucket use `'from( bucket:"' + bucket + '" ) |> range( start: 0 )`
+   To grab everthing in the bucket use `'from( bucket:"' + bucket + '" ) |> range( start: 0 )'`
 6. Run: `node .`
 
 
